@@ -2,9 +2,9 @@ Customer Churn Prediction ML Project
 
 Overview
 
-This project predicts customer churn (customers likely to leave a service) using multiple machine learning models. The aim is to help businesses identify at-risk customers and retain them.
+This project predicts customer churn — i.e., customers who are likely to leave a service — using state-of-the-art machine learning models. The goal is to help businesses identify at-risk customers and take preventive actions to retain them.
 
-Models used:
+The project implements multiple models:
 
 XGBoost
 
@@ -12,43 +12,55 @@ LightGBM
 
 CatBoost
 
-Ensemble
+Ensemble of all models
 
-The project includes EDA, model training, evaluation, and hyperparameter tuning.
+It includes exploratory data analysis (EDA), model training, evaluation, hyperparameter tuning, and provides actionable insights for customer retention strategies.
 
-Dataset Description
+Dataset
 
-Telco Customer Churn dataset (Kaggle link
-) contains customer demographics, account information, service usage, and billing data.
+This project uses the Telco Customer Churn dataset from Kaggle: Link to dataset
+.
 
-Target variable: Churn (Yes = customer left, No = customer stayed)
+The dataset contains 7043 customers with demographic, account, service usage, and billing information. The target variable is:
 
-Key Features:
+Churn → Whether the customer left the company (Yes/No)
 
-Demographics: gender, SeniorCitizen, Partner, Dependents
+Key Features
 
-Account Info: tenure, Contract, PaymentMethod, PaperlessBilling
+Demographics
 
-Service Usage: PhoneService, MultipleLines, InternetService, OnlineSecurity, StreamingTV, etc.
+gender, SeniorCitizen, Partner, Dependents
 
-Billing: MonthlyCharges, TotalCharges
+Account Information
 
-Importance:
-Churn prediction allows companies to take preventive measures to reduce customer loss. Dataset contains both numerical and categorical features, suitable for ML pipelines.
+tenure, Contract, PaymentMethod, PaperlessBilling
+
+Service Usage
+
+PhoneService, MultipleLines, InternetService, OnlineSecurity, OnlineBackup, DeviceProtection, TechSupport, StreamingTV, StreamingMovies
+
+Billing
+
+MonthlyCharges, TotalCharges
+
+Target
+
+Churn: Yes/No
+
+Churn prediction is critical for telecom companies, as retaining customers is more cost-effective than acquiring new ones. The dataset includes both numerical and categorical features, making it ideal for real-world ML workflows.
 
 Project Structure
-├── images/                # Plots and graphs from EDA and results
+├── images/                # Plots from EDA and model results
 ├── eda.ipynb              # Exploratory Data Analysis
-├── train_xgboost.py       # XGBoost model training
-├── train_lightgbm.py      # LightGBM model training
-├── train_catboost.py      # CatBoost model training
-├── train_ensemble.py      # Ensemble of all models
-├── helpers.py             # Helper functions
-├── params.yaml            # Hyperparameters
-├── requirements.txt       # Required Python packages
+├── train_xgboost.py       # XGBoost training
+├── train_lightgbm.py      # LightGBM training
+├── train_catboost.py      # CatBoost training
+├── train_ensemble.py      # Ensemble of models
+├── helpers.py             # Utility functions
+├── params.yaml            # Model hyperparameters
+├── requirements.txt       # Python dependencies
 ├── train.csv              # Training data
 ├── test.csv               # Test data
-├── customer_churn_ml.zip  # Data & project archive
 └── README.md              # Project documentation
 
 How to Run
@@ -69,7 +81,13 @@ Run EDA
 jupyter notebook eda.ipynb
 
 
-Plots include: churn distribution, tenure vs churn, monthly charges vs churn.
+Visualizations include:
+
+Churn distribution
+
+Tenure vs Churn
+
+Monthly Charges vs Churn
 
 Train models
 
@@ -83,14 +101,14 @@ Evaluate results
 
 Metrics: Accuracy, F1-score, Precision, Recall, ROC-AUC
 
-Confusion matrices and threshold tuning are included
+Confusion matrix and threshold tuning available for each model
 
 Model Performance
 Model	Accuracy	F1 Score	ROC-AUC	Notes
-XGBoost	0.77	0.77	0.820	Good overall, Class 1 lower recall
-LightGBM	N/A	N/A	N/A	Model file missing in test
+XGBoost	0.77	0.77	0.820	Balanced performance, Class 1 lower recall
+LightGBM	N/A	N/A	N/A	Model file missing
 CatBoost	0.78	0.62	0.830	Best F1 after threshold tuning (0.34)
-Ensemble	0.778	0.599	0.831	Slight ROC-AUC improvement
+Ensemble	0.778	0.599	0.831	Slight improvement in ROC-AUC
 
 Confusion Matrix (CatBoost, Threshold=0.34)
 
@@ -106,23 +124,23 @@ Churn Distribution Plot:
 
 Key Insights
 
-Class 1 (churned customers) is harder to predict → F1 lower.
+Class 1 (churned customers) is harder to predict → lower F1 and recall.
 
-Threshold tuning significantly improves F1-score for churned class.
+Threshold tuning improves F1-score for churned customers.
 
-Ensemble slightly improves ROC-AUC but CatBoost alone gives best balance.
+Ensemble slightly improves ROC-AUC, but CatBoost alone gives the best balance.
 
-Data imbalance in test set requires attention (SMOTE, class weighting).
+Imbalanced test set highlights the need for techniques like SMOTE, class weighting, or threshold tuning.
 
 Recommendations
 
-Adjust thresholds per business objectives (maximize recall for churned customers).
+Adjust thresholds per business objective (maximize recall for churned customers).
 
-Feature engineering: create derived features (tenure × monthly charges, etc.).
+Perform feature engineering to create interaction or derived features.
 
-Ensemble stacking could boost performance further.
+Consider ensemble stacking to improve performance.
 
-Document assumptions and hyperparameters for reproducibility.
+Document assumptions, preprocessing, and hyperparameters for reproducibility.
 
 Dependencies
 
@@ -134,10 +152,10 @@ scikit-learn
 
 xgboost, lightgbm, catboost
 
-matplotlib, seaborn (for EDA)
+matplotlib, seaborn
 
 optuna (for hyperparameter tuning)
 
 License
 
-Educational and portfolio purposes.
+This project is for educational and portfolio purposes.
